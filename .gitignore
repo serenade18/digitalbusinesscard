@@ -1,0 +1,15 @@
+venv/
+.venv/
+mediafiles/
+staticfiles/
+*.log
+*.sqlite
+*.sqlite3
+*.pyc
+__pycache__/
+.DS_Store
+.idea/
+.vscode/
+.env
+.env.*
+!.env.example

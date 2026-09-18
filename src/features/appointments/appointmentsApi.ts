@@ -1,4 +1,5 @@
 import { baseApi } from '@/services/api'
+import { unwrapResults } from '@/lib/pagination'
 import type {
   Appointment,
   AppointmentService,
@@ -13,8 +14,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
     // filter by vcard client-side.
     listAppointments: build.query<Appointment[], void>({
       query: () => '/appointments/',
-      transformResponse: (response: Appointment[] | { results: Appointment[] }) =>
-        Array.isArray(response) ? response : response.results,
+      transformResponse: unwrapResults<Appointment>,
       providesTags: (result) =>
         result
           ? [...result.map((a) => ({ type: 'Appointment' as const, id: a.id })), 'Appointment']
@@ -32,6 +32,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
     // Services (bookable offerings for a card)
     listAppointmentServices: build.query<AppointmentService[], string>({
       query: (vcardId) => `/appointments/vcards/${vcardId}/services/`,
+      transformResponse: unwrapResults<AppointmentService>,
       providesTags: (result) =>
         result
           ? [...result.map((s) => ({ type: 'AppointmentService' as const, id: s.id })), 'AppointmentService']
@@ -53,6 +54,7 @@ export const appointmentsApi = baseApi.injectEndpoints({
     // Availability rules
     listAvailabilityRules: build.query<AvailabilityRule[], string>({
       query: (vcardId) => `/appointments/vcards/${vcardId}/availability/`,
+      transformResponse: unwrapResults<AvailabilityRule>,
       providesTags: (result) =>
         result
           ? [...result.map((r) => ({ type: 'AvailabilityRule' as const, id: r.id })), 'AvailabilityRule']

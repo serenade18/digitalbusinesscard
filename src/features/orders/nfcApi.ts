@@ -1,12 +1,12 @@
 import { baseApi } from '@/services/api'
+import { unwrapResults } from '@/lib/pagination'
 import type { NfcCard } from '@/types/nfc'
 
 export const nfcApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     listNfcCards: build.query<NfcCard[], void>({
       query: () => '/nfc/',
-      transformResponse: (response: NfcCard[] | { results: NfcCard[] }) =>
-        Array.isArray(response) ? response : response.results,
+      transformResponse: unwrapResults<NfcCard>,
       providesTags: (result) =>
         result ? [...result.map((c) => ({ type: 'NfcCard' as const, id: c.id })), 'NfcCard'] : ['NfcCard'],
     }),

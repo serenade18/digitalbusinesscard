@@ -1,4 +1,5 @@
 import { baseApi } from '@/services/api'
+import { unwrapResults } from '@/lib/pagination'
 import type { Paginated } from '@/types/common'
 import type { Order, OrderCreatePayload, PhysicalCardProduct } from '@/types/orders'
 
@@ -6,6 +7,7 @@ export const ordersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     listPhysicalCardProducts: build.query<PhysicalCardProduct[], void>({
       query: () => '/orders/products/',
+      transformResponse: unwrapResults<PhysicalCardProduct>,
     }),
     listOrders: build.query<Paginated<Order>, void>({
       query: () => '/orders/',

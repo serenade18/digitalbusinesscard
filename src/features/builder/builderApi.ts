@@ -1,5 +1,6 @@
 import { baseApi } from '@/services/api'
 import { hasFile, toFormData } from '@/services/uploads'
+import { unwrapResults } from '@/lib/pagination'
 import type { GalleryItem, Product, ProfileBlock, ProfileLink, Service, Testimonial } from '@/types/blocks'
 import type { WithUpload } from '@/types/common'
 
@@ -12,6 +13,7 @@ export const builderApi = baseApi.injectEndpoints({
     // ---- Blocks (order + visibility of each page section) -------------
     listBlocks: build.query<ProfileBlock[], string>({
       query: (vcardId) => `/vcards/${vcardId}/blocks/`,
+      transformResponse: unwrapResults<ProfileBlock>,
       providesTags: (result) =>
         result ? [...result.map((b) => ({ type: 'Block' as const, id: b.id })), 'Block'] : ['Block'],
     }),
@@ -54,6 +56,7 @@ export const builderApi = baseApi.injectEndpoints({
     // ---- Links ----------------------------------------------------------
     listLinks: build.query<ProfileLink[], string>({
       query: (vcardId) => `/vcards/${vcardId}/links/`,
+      transformResponse: unwrapResults<ProfileLink>,
       providesTags: (result) =>
         result ? [...result.map((l) => ({ type: 'Link' as const, id: l.id })), 'Link'] : ['Link'],
     }),
@@ -73,6 +76,7 @@ export const builderApi = baseApi.injectEndpoints({
     // ---- Services ---------------------------------------------------------
     listServices: build.query<Service[], string>({
       query: (vcardId) => `/vcards/${vcardId}/services/`,
+      transformResponse: unwrapResults<Service>,
       providesTags: (result) =>
         result ? [...result.map((s) => ({ type: 'Service' as const, id: s.id })), 'Service'] : ['Service'],
     }),
@@ -92,6 +96,7 @@ export const builderApi = baseApi.injectEndpoints({
     // ---- Products ---------------------------------------------------------
     listProducts: build.query<Product[], string>({
       query: (vcardId) => `/vcards/${vcardId}/products/`,
+      transformResponse: unwrapResults<Product>,
       providesTags: (result) =>
         result ? [...result.map((p) => ({ type: 'Product' as const, id: p.id })), 'Product'] : ['Product'],
     }),
@@ -111,6 +116,7 @@ export const builderApi = baseApi.injectEndpoints({
     // ---- Testimonials ----------------------------------------------------
     listTestimonials: build.query<Testimonial[], string>({
       query: (vcardId) => `/vcards/${vcardId}/testimonials/`,
+      transformResponse: unwrapResults<Testimonial>,
       providesTags: (result) =>
         result
           ? [...result.map((t) => ({ type: 'Testimonial' as const, id: t.id })), 'Testimonial']
@@ -132,6 +138,7 @@ export const builderApi = baseApi.injectEndpoints({
     // ---- Gallery ----------------------------------------------------------
     listGalleryItems: build.query<GalleryItem[], string>({
       query: (vcardId) => `/vcards/${vcardId}/gallery-items/`,
+      transformResponse: unwrapResults<GalleryItem>,
       providesTags: (result) =>
         result
           ? [...result.map((g) => ({ type: 'GalleryItem' as const, id: g.id })), 'GalleryItem']

@@ -1,10 +1,12 @@
 import { baseApi } from '@/services/api'
+import { unwrapResults } from '@/lib/pagination'
 import type { CheckoutPayload, CheckoutResult, Payment, Plan, Subscription } from '@/types/billing'
 
 export const billingApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     listPlans: build.query<Plan[], void>({
       query: () => '/billing/plans/',
+      transformResponse: unwrapResults<Plan>,
       providesTags: ['Plan'],
     }),
     getSubscription: build.query<Subscription, { organizationId?: string | null } | void>({
@@ -31,6 +33,7 @@ export const billingApi = baseApi.injectEndpoints({
         url: '/billing/invoices/',
         params: arg?.organizationId ? { organization: arg.organizationId } : undefined,
       }),
+      transformResponse: unwrapResults<Payment>,
       providesTags: ['Invoice'],
     }),
   }),

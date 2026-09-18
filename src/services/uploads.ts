@@ -8,7 +8,7 @@
  * Only string/number/boolean/File values are appended — `undefined`/`null`
  * fields are skipped so a PATCH doesn't clobber existing values.
  */
-export function toFormData(payload: Record<string, unknown>): FormData {
+export function toFormData<T extends object>(payload: T): FormData {
   const formData = new FormData()
 
   for (const [key, value] of Object.entries(payload)) {
@@ -26,6 +26,6 @@ export function toFormData(payload: Record<string, unknown>): FormData {
   return formData
 }
 
-export function hasFile(payload: Record<string, unknown>): boolean {
+export function hasFile<T extends object>(payload: T): boolean {
   return Object.values(payload).some((value) => value instanceof File)
 }

@@ -13,13 +13,15 @@ export function useSelectedVCard() {
   const cards = data?.results ?? []
   const vcardId = searchParams.get('vcard')
 
+  const firstCardId = cards[0]?.id
+
   useEffect(() => {
-    if (!vcardId && cards.length > 0) {
+    if (!vcardId && firstCardId) {
       const next = new URLSearchParams(searchParams)
-      next.set('vcard', cards[0].id)
+      next.set('vcard', firstCardId)
       setSearchParams(next, { replace: true })
     }
-  }, [vcardId, cards.length, searchParams, setSearchParams])
+  }, [vcardId, firstCardId, searchParams, setSearchParams])
 
   function setVCardId(id: string) {
     const next = new URLSearchParams(searchParams)

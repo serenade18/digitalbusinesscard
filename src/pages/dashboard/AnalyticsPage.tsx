@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Loader2, Lock } from 'lucide-react'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { StatCard } from '@/components/common/StatCard'
 import { VCardSelect } from '@/components/cards/VCardSelect'
@@ -7,10 +8,15 @@ import { TimeSeriesChart } from '@/components/charts/TimeSeriesChart'
 import { BreakdownBarChart } from '@/components/charts/BreakdownBarChart'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { EmptyState } from '@/components/common/EmptyState'
 import { useSelectedVCard } from '@/features/cards/useSelectedVCard'
 import { useGetAnalyticsQuery } from '@/features/analytics/analyticsApi'
 import type { AnalyticsPeriod } from '@/types/analytics'
+
+function isEntitlementError(error: unknown): boolean {
+  return typeof error === 'object' && error !== null && 'status' in error && (error as { status: unknown }).status === 402
+}
 
 const periods: { value: AnalyticsPeriod; label: string }[] = [
   { value: 'today', label: 'Today' },
@@ -27,7 +33,7 @@ export function AnalyticsPage() {
   const [customStart, setCustomStart] = useState('')
   const [customEnd, setCustomEnd] = useState('')
 
-  const { data, isLoading, isFetching } = useGetAnalyticsQuery(
+  const { data, error, isLoading, isFetching } = useGetAnalyticsQuery(
     vcardId
       ? {
           vcard: vcardId,
@@ -76,6 +82,19 @@ export function AnalyticsPage() {
             <div className="flex justify-center py-16">
               <Loader2 className="size-6 animate-spin text-muted-foreground" />
             </div>
+          )}
+
+          {!isFetching && isEntitlementError(error) && (
+            <EmptyState
+              icon={Lock}
+              title="Analytics isn't available on your current plan"
+              description="Upgrade to see views, clicks, and engagement for this card."
+              action={
+                <Button asChild size="sm">
+                  <Link to="/app/billing">View plans</Link>
+                </Button>
+              }
+            />
           )}
 
           {data && !isFetching && (

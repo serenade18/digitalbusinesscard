@@ -83,13 +83,21 @@ export function CardSettingsPage() {
   }
 
   async function handleDownloadQr(format: 'png' | 'svg' | 'pdf') {
-    const url = await triggerQr({ id: card!.id, format }).unwrap()
-    triggerDownload(url, `${card!.slug}-qr.${format}`)
+    try {
+      const url = await triggerQr({ id: card!.id, format }).unwrap()
+      triggerDownload(url, `${card!.slug}-qr.${format}`)
+    } catch (error) {
+      toast.error(extractErrorMessage(error, `Could not generate a ${format.toUpperCase()} QR code.`))
+    }
   }
 
   async function handleDownloadVcf() {
-    const url = await triggerVcf(card!.id).unwrap()
-    triggerDownload(url, `${card!.slug}.vcf`)
+    try {
+      const url = await triggerVcf(card!.id).unwrap()
+      triggerDownload(url, `${card!.slug}.vcf`)
+    } catch (error) {
+      toast.error(extractErrorMessage(error, 'Could not download the contact file.'))
+    }
   }
 
   async function handleDelete() {

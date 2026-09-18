@@ -63,7 +63,13 @@ export const cardsApi = baseApi.injectEndpoints({
     getCardQr: build.query<string, { id: string; format?: 'png' | 'svg' | 'pdf' }>({
       query: ({ id, format }) => ({
         url: `/vcards/${id}/qr/`,
-        params: format ? { format } : undefined,
+        // DRF's router reserves the `format` query param for its own
+        // content-negotiation and 404s on any value it doesn't recognize as
+        // a registered renderer — it never reaches the view's own `?format=`
+        // read. PNG is the view's default when the param is omitted, so we
+        // rely on that instead; SVG/PDF are unreachable through this query
+        // param until the backend renames it.
+        params: format && format !== 'png' ? { format } : undefined,
         responseHandler: (response: Response) => response.blob(),
       }),
       transformResponse: (blob: Blob) => URL.createObjectURL(blob),

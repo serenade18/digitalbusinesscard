@@ -21,7 +21,7 @@ export interface Plan {
 }
 
 export type SubscriptionProvider = 'stripe' | 'mpesa' | 'sasapay'
-export type SubscriptionStatus = 'trialing' | 'active' | 'past_due' | 'canceled' | 'incomplete' | 'expired'
+export type SubscriptionStatus = 'trialing' | 'active' | 'past_due' | 'cancelled' | 'expired' | 'paused'
 
 export interface Subscription {
   id: string

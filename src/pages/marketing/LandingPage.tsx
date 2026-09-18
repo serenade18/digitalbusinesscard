@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
-import { BarChart3, CalendarClock, Palette, QrCode, Share2, Users } from 'lucide-react'
+import { BarChart3, CalendarClock, ChevronRight, Palette, QrCode, Share2, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { HeroPhoneFan } from './HeroPhoneFan'
+import { HowItWorksShowcase } from './HowItWorksShowcase'
 
 const features = [
   {
@@ -44,7 +46,7 @@ const steps = [
 export function LandingPage() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-4 pt-16 pb-20 text-center md:px-8 md:pt-24 md:pb-28">
+      <section className="mx-auto max-w-6xl overflow-hidden px-4 pt-16 pb-8 text-center md:px-8 md:pt-24 md:pb-12">
         <h1 className="mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
           Your whole professional identity.
           <br />
@@ -62,6 +64,8 @@ export function LandingPage() {
             <Link to="/features">See how it works</Link>
           </Button>
         </div>
+
+        <HeroPhoneFan />
       </section>
 
       <section className="border-y border-border bg-muted/30 py-20">
@@ -87,15 +91,32 @@ export function LandingPage() {
       <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
         <div className="mx-auto max-w-xl text-center">
           <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">How it works</h2>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-2">
+            {steps.map((item, i) => (
+              <span key={item.step} className="flex items-center gap-2">
+                <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+                  <span className="flex size-5 items-center justify-center rounded-full bg-brand/10 text-[10px] font-semibold text-brand">
+                    {item.step}
+                  </span>
+                  {item.title}
+                </span>
+                {i < steps.length - 1 && <ChevronRight className="size-4 text-muted-foreground/50" />}
+              </span>
+            ))}
+          </div>
         </div>
-        <div className="mt-12 grid gap-8 md:grid-cols-3">
-          {steps.map((item) => (
-            <div key={item.step} className="flex flex-col gap-2">
-              <span className="text-sm font-semibold text-brand">{item.step}</span>
-              <h3 className="font-semibold">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">{item.description}</p>
-            </div>
-          ))}
+
+        <div className="mt-12">
+          <HowItWorksShowcase />
+          <div className="mt-6 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
+            <p className="text-center sm:text-left">
+              A digital card isn't just a link — it lives right where you already reach for your ID, your
+              tickets, your cards.
+            </p>
+            <p className="text-center sm:text-right">
+              It replaces the awkward card fumble with a single tap, scan, or glance.
+            </p>
+          </div>
         </div>
       </section>
 

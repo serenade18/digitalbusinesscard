@@ -15,4 +15,9 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
   },
+  build: {
+    outDir: "../DBCBackend/frontend/dist",
+    emptyOutDir: true,
+
+  },
 })

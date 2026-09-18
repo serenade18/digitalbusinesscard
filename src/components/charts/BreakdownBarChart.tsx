@@ -2,14 +2,14 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 import { chartAxisColor, chartGridColor, chartSeriesColors } from '@/lib/chart-colors'
 import { EmptyState } from '@/components/common/EmptyState'
 
-export function BreakdownBarChart({
+export function BreakdownBarChart<T extends object>({
   data,
   labelKey,
-  valueKey = 'count',
+  valueKey = 'count' as keyof T,
 }: {
-  data: Record<string, string | number>[]
-  labelKey: string
-  valueKey?: string
+  data: T[]
+  labelKey: keyof T
+  valueKey?: keyof T
 }) {
   if (data.length === 0) {
     return <EmptyState title="No data for this period" />
@@ -22,7 +22,7 @@ export function BreakdownBarChart({
         <XAxis type="number" stroke={chartAxisColor} fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} />
         <YAxis
           type="category"
-          dataKey={labelKey}
+          dataKey={labelKey as string}
           stroke={chartAxisColor}
           fontSize={12}
           tickLine={false}
@@ -37,7 +37,7 @@ export function BreakdownBarChart({
             fontSize: 12,
           }}
         />
-        <Bar dataKey={valueKey} fill={chartSeriesColors[0]} radius={[0, 4, 4, 0]} barSize={16} />
+        <Bar dataKey={valueKey as string} fill={chartSeriesColors[0]} radius={[0, 4, 4, 0]} barSize={16} />
       </BarChart>
     </ResponsiveContainer>
   )

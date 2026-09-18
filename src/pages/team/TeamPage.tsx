@@ -179,7 +179,11 @@ function OrganizationTeam({ organizationId, orgName }: { organizationId: string;
               <Select
                 value={member.role}
                 onValueChange={(role) =>
-                  void updateMember({ orgId: organizationId, memberId: member.id, body: { role: role as OrganizationRole } })
+                  void updateMember({
+                    orgId: organizationId,
+                    memberId: member.id,
+                    body: { role: role as Exclude<OrganizationRole, 'owner'> },
+                  })
                 }
               >
                 <SelectTrigger className="w-28">

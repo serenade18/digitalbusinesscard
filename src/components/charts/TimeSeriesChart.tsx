@@ -18,7 +18,7 @@ export function TimeSeriesChart({ data }: { data: AnalyticsTimeSeriesPoint[] }) 
         />
         <YAxis stroke={chartAxisColor} fontSize={12} tickLine={false} axisLine={false} allowDecimals={false} width={32} />
         <Tooltip
-          labelFormatter={(value: string) => formatDate(value)}
+          labelFormatter={(value) => formatDate(String(value))}
           contentStyle={{
             backgroundColor: 'var(--popover)',
             border: '1px solid var(--border)',

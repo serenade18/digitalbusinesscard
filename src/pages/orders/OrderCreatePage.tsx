@@ -18,7 +18,7 @@ import { extractErrorMessage } from '@/lib/errors'
 
 const schema = z.object({
   product_id: z.string().min(1, 'Pick a card'),
-  quantity: z.coerce.number().min(1),
+  quantity: z.string().min(1),
   vcard_id: z.string().optional(),
   provider: z.enum(['stripe', 'mpesa', 'sasapay']),
   full_name: z.string().min(1, 'Required'),
@@ -46,14 +46,14 @@ export function OrderCreatePage() {
     control,
     setValue,
     formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { quantity: 1, provider: 'stripe' } })
+  } = useForm<FormValues>({ resolver: zodResolver(schema), defaultValues: { quantity: '1', provider: 'stripe' } })
 
   const cards = cardsData?.results ?? []
 
   async function onSubmit(values: FormValues) {
     try {
       const result = await createOrder({
-        items: [{ product_id: values.product_id, quantity: values.quantity, vcard_id: values.vcard_id || null }],
+        items: [{ product_id: values.product_id, quantity: Number(values.quantity), vcard_id: values.vcard_id || null }],
         shipping_address: {
           full_name: values.full_name,
           company: '',

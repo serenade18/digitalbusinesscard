@@ -66,10 +66,10 @@ export function LoginPage() {
           label="Password"
           htmlFor="password"
           error={errors.password?.message}
-          hint={
-            <Link to="/forgot-password" className="text-foreground hover:underline">
+          labelExtra={
+            <Link to="/forgot-password" className="text-xs text-muted-foreground hover:text-foreground hover:underline">
               Forgot password?
-            </Link> as unknown as string
+            </Link>
           }
         >
           <Input id="password" type="password" autoComplete="current-password" {...register('password')} />

@@ -1,5 +1,6 @@
 import { baseApi } from '@/services/api'
 import type {
+  AuthTokens,
   ChangePasswordPayload,
   ForgotPasswordPayload,
   LoginPayload,
@@ -21,6 +22,9 @@ export const authApi = baseApi.injectEndpoints({
     }),
     logout: build.mutation<void, { refresh: string }>({
       query: (body) => ({ url: '/auth/logout/', method: 'POST', body }),
+    }),
+    refreshToken: build.mutation<Pick<AuthTokens, 'access'> & { refresh?: string }, { refresh: string }>({
+      query: (body) => ({ url: '/auth/refresh/', method: 'POST', body }),
     }),
     me: build.query<User, void>({
       query: () => '/auth/me/',
@@ -52,6 +56,7 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useLogoutMutation,
+  useRefreshTokenMutation,
   useMeQuery,
   useLazyMeQuery,
   useUpdateMeMutation,

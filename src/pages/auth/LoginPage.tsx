@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/forms/PasswordInput'
 import { Field } from '@/components/forms/Field'
 import { AuthShell } from '@/pages/auth/AuthShell'
 import { useLoginMutation } from '@/features/auth/authApi'
@@ -72,7 +73,7 @@ export function LoginPage() {
             </Link>
           }
         >
-          <Input id="password" type="password" autoComplete="current-password" {...register('password')} />
+          <PasswordInput id="password" autoComplete="current-password" {...register('password')} />
         </Field>
         <Button type="submit" disabled={isLoading} className="mt-2">
           {isLoading && <Loader2 className="animate-spin" />}

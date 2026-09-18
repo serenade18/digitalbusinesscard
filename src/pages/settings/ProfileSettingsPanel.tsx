@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import { Camera, CheckCircle2, Loader2 } from 'lucide-react'
 import { Field } from '@/components/forms/Field'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/forms/PasswordInput'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -139,10 +140,10 @@ export function ProfileSettingsPanel() {
         <h2 className="mb-4 text-sm font-semibold text-muted-foreground">Password</h2>
         <form onSubmit={handleSubmitPw(onChangePassword)} className="flex flex-col gap-3">
           <Field label="Current password" htmlFor="old_password" error={pwErrors.old_password?.message}>
-            <Input id="old_password" type="password" {...registerPw('old_password')} />
+            <PasswordInput id="old_password" autoComplete="current-password" {...registerPw('old_password')} />
           </Field>
           <Field label="New password" htmlFor="new_password" error={pwErrors.new_password?.message}>
-            <Input id="new_password" type="password" {...registerPw('new_password')} />
+            <PasswordInput id="new_password" autoComplete="new-password" {...registerPw('new_password')} />
           </Field>
           <Button type="submit" disabled={isChangingPassword} className="self-start">
             {isChangingPassword && <Loader2 className="animate-spin" />}

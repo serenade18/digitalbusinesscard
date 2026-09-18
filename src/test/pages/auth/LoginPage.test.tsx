@@ -28,7 +28,7 @@ describe('LoginPage', () => {
     renderWithProviders(<LoginPage />, { store: createTestStore({ status: 'anonymous', user: null, accessToken: null }) })
 
     await user.type(screen.getByLabelText(/email/i), 'jane@example.com')
-    await user.type(screen.getByLabelText(/password/i), 'correct horse battery staple')
+    await user.type(screen.getByLabelText(/^password$/i), 'correct horse battery staple')
     await user.click(screen.getByRole('button', { name: /log in/i }))
 
     await waitFor(() => expect(fetchSpy).toHaveBeenCalled())

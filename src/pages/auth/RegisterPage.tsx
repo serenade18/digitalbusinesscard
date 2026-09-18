@@ -6,6 +6,7 @@ import { toast } from 'sonner'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/forms/PasswordInput'
 import { Field } from '@/components/forms/Field'
 import { AuthShell } from '@/pages/auth/AuthShell'
 import { useRegisterMutation } from '@/features/auth/authApi'
@@ -76,7 +77,7 @@ export function RegisterPage() {
           <Input id="phone" type="tel" autoComplete="tel" {...register('phone')} />
         </Field>
         <Field label="Password" htmlFor="password" error={errors.password?.message}>
-          <Input id="password" type="password" autoComplete="new-password" {...register('password')} />
+          <PasswordInput id="password" autoComplete="new-password" {...register('password')} />
         </Field>
         <Button type="submit" disabled={isLoading} className="mt-2">
           {isLoading && <Loader2 className="animate-spin" />}

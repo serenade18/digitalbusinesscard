@@ -5,7 +5,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { PasswordInput } from '@/components/forms/PasswordInput'
 import { Field } from '@/components/forms/Field'
 import { AuthShell } from '@/pages/auth/AuthShell'
 import { useResetPasswordMutation } from '@/features/auth/authApi'
@@ -57,7 +57,7 @@ export function ResetPasswordPage() {
     <AuthShell title="Set a new password">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <Field label="New password" htmlFor="new_password" error={errors.new_password?.message}>
-          <Input id="new_password" type="password" autoComplete="new-password" {...register('new_password')} />
+          <PasswordInput id="new_password" autoComplete="new-password" {...register('new_password')} />
         </Field>
         <Button type="submit" disabled={isLoading} className="mt-2">
           {isLoading && <Loader2 className="animate-spin" />}

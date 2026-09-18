@@ -14,3 +14,7 @@ export interface ApiErrorBody {
 }
 
 export type Currency = string
+
+/** Lets a create/update payload pass a `File` for image fields that the
+ * read model types as a plain `string` URL. */
+export type WithUpload<T, K extends keyof T> = Omit<T, K> & { [P in K]?: T[P] | File }

@@ -1,8 +1,9 @@
 import { baseApi } from '@/services/api'
 import { hasFile, toFormData } from '@/services/uploads'
 import type { GalleryItem, Product, ProfileBlock, ProfileLink, Service, Testimonial } from '@/types/blocks'
+import type { WithUpload } from '@/types/common'
 
-function body(payload: Record<string, unknown>) {
+function body<T extends object>(payload: T) {
   return hasFile(payload) ? toFormData(payload) : payload
 }
 
@@ -75,11 +76,11 @@ export const builderApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result ? [...result.map((s) => ({ type: 'Service' as const, id: s.id })), 'Service'] : ['Service'],
     }),
-    createService: build.mutation<Service, { vcardId: string; body: Partial<Service> }>({
+    createService: build.mutation<Service, { vcardId: string; body: Partial<WithUpload<Service, 'image'>> }>({
       query: ({ vcardId, body: b }) => ({ url: `/vcards/${vcardId}/services/`, method: 'POST', body: body(b) }),
       invalidatesTags: ['Service'],
     }),
-    updateService: build.mutation<Service, { id: string; body: Partial<Service> }>({
+    updateService: build.mutation<Service, { id: string; body: Partial<WithUpload<Service, 'image'>> }>({
       query: ({ id, body: b }) => ({ url: `/services/${id}/`, method: 'PATCH', body: body(b) }),
       invalidatesTags: (_r, _e, { id }) => [{ type: 'Service', id }],
     }),
@@ -94,11 +95,11 @@ export const builderApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result ? [...result.map((p) => ({ type: 'Product' as const, id: p.id })), 'Product'] : ['Product'],
     }),
-    createProduct: build.mutation<Product, { vcardId: string; body: Partial<Product> }>({
+    createProduct: build.mutation<Product, { vcardId: string; body: Partial<WithUpload<Product, 'image'>> }>({
       query: ({ vcardId, body: b }) => ({ url: `/vcards/${vcardId}/products/`, method: 'POST', body: body(b) }),
       invalidatesTags: ['Product'],
     }),
-    updateProduct: build.mutation<Product, { id: string; body: Partial<Product> }>({
+    updateProduct: build.mutation<Product, { id: string; body: Partial<WithUpload<Product, 'image'>> }>({
       query: ({ id, body: b }) => ({ url: `/products/${id}/`, method: 'PATCH', body: body(b) }),
       invalidatesTags: (_r, _e, { id }) => [{ type: 'Product', id }],
     }),
@@ -115,11 +116,11 @@ export const builderApi = baseApi.injectEndpoints({
           ? [...result.map((t) => ({ type: 'Testimonial' as const, id: t.id })), 'Testimonial']
           : ['Testimonial'],
     }),
-    createTestimonial: build.mutation<Testimonial, { vcardId: string; body: Partial<Testimonial> }>({
+    createTestimonial: build.mutation<Testimonial, { vcardId: string; body: Partial<WithUpload<Testimonial, 'customer_photo'>> }>({
       query: ({ vcardId, body: b }) => ({ url: `/vcards/${vcardId}/testimonials/`, method: 'POST', body: body(b) }),
       invalidatesTags: ['Testimonial'],
     }),
-    updateTestimonial: build.mutation<Testimonial, { id: string; body: Partial<Testimonial> }>({
+    updateTestimonial: build.mutation<Testimonial, { id: string; body: Partial<WithUpload<Testimonial, 'customer_photo'>> }>({
       query: ({ id, body: b }) => ({ url: `/testimonials/${id}/`, method: 'PATCH', body: body(b) }),
       invalidatesTags: (_r, _e, { id }) => [{ type: 'Testimonial', id }],
     }),
@@ -136,7 +137,7 @@ export const builderApi = baseApi.injectEndpoints({
           ? [...result.map((g) => ({ type: 'GalleryItem' as const, id: g.id })), 'GalleryItem']
           : ['GalleryItem'],
     }),
-    createGalleryItem: build.mutation<GalleryItem, { vcardId: string; body: Partial<GalleryItem> }>({
+    createGalleryItem: build.mutation<GalleryItem, { vcardId: string; body: Partial<WithUpload<GalleryItem, 'image'>> }>({
       query: ({ vcardId, body: b }) => ({
         url: `/vcards/${vcardId}/gallery-items/`,
         method: 'POST',
@@ -144,7 +145,7 @@ export const builderApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['GalleryItem'],
     }),
-    updateGalleryItem: build.mutation<GalleryItem, { id: string; body: Partial<GalleryItem> }>({
+    updateGalleryItem: build.mutation<GalleryItem, { id: string; body: Partial<WithUpload<GalleryItem, 'image'>> }>({
       query: ({ id, body: b }) => ({ url: `/gallery-items/${id}/`, method: 'PATCH', body: body(b) }),
       invalidatesTags: (_r, _e, { id }) => [{ type: 'GalleryItem', id }],
     }),

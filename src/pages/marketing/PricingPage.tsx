@@ -8,7 +8,7 @@ export function PricingPage() {
   const navigate = useNavigate()
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24">
+    <div className="mx-auto max-w-[1440px] px-4 py-16 md:px-8 md:py-24">
       <div className="mx-auto max-w-xl text-center">
         <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Simple, transparent pricing</h1>
         <p className="mt-4 text-muted-foreground md:text-lg">Start free, upgrade when you need more room.</p>

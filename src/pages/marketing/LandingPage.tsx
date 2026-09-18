@@ -40,7 +40,7 @@ const features = [
 export function LandingPage() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl overflow-hidden px-4 pt-16 pb-8 text-center md:px-8 md:pt-24 md:pb-12">
+      <section className="mx-auto max-w-[1440px] overflow-hidden px-4 pt-16 pb-8 text-center md:px-8 md:pt-24 md:pb-12">
         <h1 className="mx-auto max-w-2xl text-4xl font-semibold tracking-tight text-balance md:text-6xl">
           Your whole professional identity.
           <br />
@@ -63,7 +63,7 @@ export function LandingPage() {
       </section>
 
       <section className="border-y border-border bg-muted/30 py-20">
-        <div className="mx-auto max-w-6xl px-4 md:px-8">
+        <div className="mx-auto max-w-[1440px] px-4 md:px-8">
           <div className="mx-auto max-w-xl text-center">
             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">Everything on one card</h2>
             <p className="mt-2 text-muted-foreground">The pieces you need to make a strong first impression.</p>
@@ -82,7 +82,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
+      <section className="mx-auto max-w-[1440px] px-4 py-20 md:px-8">
         <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance md:text-5xl">How it works.</h2>
 
         <div className="mt-12">
@@ -100,7 +100,7 @@ export function LandingPage() {
       </section>
 
       <section className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-20 text-center md:px-8">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-4 py-20 text-center md:px-8">
           <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">Ready to make your card?</h2>
           <p className="max-w-md text-muted-foreground">It takes a few minutes to set up — free to start.</p>
           <Button size="lg" asChild>

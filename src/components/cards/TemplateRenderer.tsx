@@ -49,15 +49,15 @@ export function TemplateRenderer({ data }: { data: TemplateRendererData }) {
   const cardRadius = radiusClass[theme.borderRadius] ?? radiusClass.lg
   const buttonRadius = buttonRadiusClass[theme.buttonStyle] ?? buttonRadiusClass.rounded
 
-  const cardStyle: React.CSSProperties =
+  const cardStyle: CSSProperties =
     theme.cardStyle === 'glass'
       ? { backgroundColor: `${theme.backgroundColor}CC`, backdropFilter: 'blur(12px)' }
       : theme.cardStyle === 'outline'
         ? { backgroundColor: 'transparent', border: `1px solid ${theme.secondaryColor}40` }
         : { backgroundColor: theme.backgroundColor }
 
-  const buttonStyle: React.CSSProperties = { backgroundColor: theme.primaryColor, color: theme.backgroundColor }
-  const outlineButtonStyle: React.CSSProperties = {
+  const buttonStyle: CSSProperties = { backgroundColor: theme.primaryColor, color: theme.backgroundColor }
+  const outlineButtonStyle: CSSProperties = {
     borderColor: theme.primaryColor,
     color: theme.primaryColor,
     borderWidth: 1,
@@ -281,7 +281,7 @@ export function TemplateRenderer({ data }: { data: TemplateRendererData }) {
   )
 }
 
-function Section({ title, theme, children }: { title: string; theme: ThemeConfig; children: React.ReactNode }) {
+function Section({ title, theme, children }: { title: string; theme: ThemeConfig; children: ReactNode }) {
   return (
     <div className="text-left">
       {title && (

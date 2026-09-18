@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { useAppSelector } from '@/hooks/redux'
-import { useChangePasswordMutation, useUpdateMeMutation } from '@/features/auth/authApi'
+import { useChangePasswordMutation, useResendVerificationMutation, useUpdateMeMutation } from '@/features/auth/authApi'
 import { extractErrorMessage } from '@/lib/errors'
 
 const profileSchema = z.object({
@@ -30,6 +30,7 @@ export function ProfileSettingsPanel() {
   const user = useAppSelector((state) => state.auth.user)
   const [updateMe, { isLoading: isSavingProfile }] = useUpdateMeMutation()
   const [changePassword, { isLoading: isChangingPassword }] = useChangePasswordMutation()
+  const [resendVerification, { isLoading: isResending }] = useResendVerificationMutation()
 
   const {
     register,
@@ -78,6 +79,15 @@ export function ProfileSettingsPanel() {
     }
   }
 
+  async function handleResendVerification() {
+    try {
+      await resendVerification().unwrap()
+      toast.success('Verification email sent — check your inbox.')
+    } catch (error) {
+      toast.error(extractErrorMessage(error))
+    }
+  }
+
   if (!user) return null
 
   return (
@@ -114,6 +124,19 @@ export function ProfileSettingsPanel() {
               )}
             </div>
             <p className="text-xs text-muted-foreground">Email can't be changed here.</p>
+            {!user.email_verified && (
+              <Button
+                type="button"
+                variant="link"
+                size="sm"
+                className="h-auto px-0 text-xs"
+                disabled={isResending}
+                onClick={() => void handleResendVerification()}
+              >
+                {isResending && <Loader2 className="animate-spin" />}
+                Resend verification email
+              </Button>
+            )}
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
+import { VerifyEmailBanner } from '@/components/layout/VerifyEmailBanner'
 
 export function DashboardLayout() {
   return (
@@ -8,6 +9,7 @@ export function DashboardLayout() {
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar />
+        <VerifyEmailBanner />
         <main className="flex-1 overflow-y-auto">
           <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-8">
             <Outlet />

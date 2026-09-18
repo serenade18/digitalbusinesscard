@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BarChart3, CalendarClock, ChevronRight, Palette, QrCode, Share2, Users } from 'lucide-react'
+import { BarChart3, CalendarClock, Palette, QrCode, Share2, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { HeroPhoneFan } from './HeroPhoneFan'
 import { HowItWorksShowcase } from './HowItWorksShowcase'
@@ -35,12 +35,6 @@ const features = [
     title: 'Physical, too',
     description: 'Order an NFC card that taps your digital card open on any phone.',
   },
-]
-
-const steps = [
-  { step: '01', title: 'Create your card', description: 'Add your details, pick a template, and customize the theme.' },
-  { step: '02', title: 'Share it anywhere', description: 'Your link, QR code, or an NFC card — however people prefer to connect.' },
-  { step: '03', title: 'Track and refine', description: 'Watch your analytics and adjust your card as you learn what works.' },
 ]
 
 export function LandingPage() {
@@ -89,31 +83,16 @@ export function LandingPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-20 md:px-8">
-        <div className="mx-auto max-w-xl text-center">
-          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">How it works</h2>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-2">
-            {steps.map((item, i) => (
-              <span key={item.step} className="flex items-center gap-2">
-                <span className="flex items-center gap-1.5 text-sm font-medium text-foreground">
-                  <span className="flex size-5 items-center justify-center rounded-full bg-brand/10 text-[10px] font-semibold text-brand">
-                    {item.step}
-                  </span>
-                  {item.title}
-                </span>
-                {i < steps.length - 1 && <ChevronRight className="size-4 text-muted-foreground/50" />}
-              </span>
-            ))}
-          </div>
-        </div>
+        <h2 className="max-w-xl text-3xl font-semibold tracking-tight text-balance md:text-5xl">How it works.</h2>
 
         <div className="mt-12">
           <HowItWorksShowcase />
-          <div className="mt-6 grid gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-            <p className="text-center sm:text-left">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 sm:items-end">
+            <p className="text-base font-medium text-foreground sm:text-lg">
               A digital card isn't just a link — it lives right where you already reach for your ID, your
               tickets, your cards.
             </p>
-            <p className="text-center sm:text-right">
+            <p className="text-sm text-muted-foreground sm:text-right">
               It replaces the awkward card fumble with a single tap, scan, or glance.
             </p>
           </div>
